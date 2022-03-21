@@ -101,11 +101,15 @@ namespace WolfKillen
             }
             else if(playersMode == 10)
             {
-                //六人模式下的分组
-                //rule 女巫 猎人 白痴 一民 二狼
                 PlayerJobs[0] = jobId;
                 PlayerJobs = assi.AssignPlayerRole(playersMode, PlayerJobs);
                 //3狼,预言家,女巫,猎人，3民，守卫 第二天白日掉落一个警察头衔
+            }
+            else if(playersMode == 12)
+            {
+                PlayerJobs[0] = jobId;
+                PlayerJobs = assi.AssignPlayerRole(playersMode, PlayerJobs);
+                //https://zhuanlan.zhihu.com/p/63750422 4狼4民 预言家、女巫、猎人、白痴
             }
             DayToNight();
 

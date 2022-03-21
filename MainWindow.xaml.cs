@@ -97,17 +97,26 @@ namespace WolfKillen
             //六人情况下的提示
             if(playersMode == 6 && onlinePlay == true)
             {
-                tips.Content = "请注意，该模式下你只能由管理员为你选择角色。目标主机的玩家数量是 " + playersMode + "。\n因此，警长、预言家和守卫 已依照规则除去。";
+                tips.Content = "请注意，该模式下你只能由管理员为你选择角色。目标主机的既定玩家数量是 " + playersMode + "。\n因此，预言家和守卫 已依照规则除去。";
                 csTx.Text = "进入服务器";
             }
             else if(onlinePlay)
             {
-                tips.Content = "请注意，该模式下你只能由管理员为你选择角色。\n目标主机的玩家数量是 "+playersMode;
+                tips.Content = "请注意，该模式下你只能由管理员为你选择角色。\n目标主机的既定玩家数量是 "+playersMode;
                 csTx.Text = "进入服务器";
             }
             else if(playersMode == 6)
             {
-                tips.Content = "请注意，该模式下的 警长、预言家和守卫 已依照规则除去。";
+                tips.Content = "请注意，该模式下的 预言家和守卫 已依照规则除去。";
+            }
+            else if (playersMode == 10)
+            {
+                tips.Content = "请注意，该模式下的 白痴 已依照规则除去。";
+            }
+            if (playersMode == 10 && onlinePlay == true)
+            {
+                tips.Content = "请注意，该模式下你只能由管理员为你选择角色。目标主机的既定玩家数量是 " + playersMode + "。\n因此，白痴 已依照规则除去。";
+                csTx.Text = "进入服务器";
             }
             else
             {
@@ -240,16 +249,27 @@ namespace WolfKillen
         private void computerSetClicked(object sender, MouseButtonEventArgs e)
         {
             Random rd = new Random();
-            jobId = rd.Next(1, 9);
+            jobId = rd.Next(1, 8);
             //处理个例
-            if(jobId == 6)
+            if (playersMode == 6)
             {
-                jobId = 4;
+                if (jobId == 5)
+                {
+                    jobId = 4;
+                }
+                else if (jobId == 7)
+                {
+                    jobId--;
+                }
             }
-            else if(jobId == 5 || jobId == 8)
+            else if(playersMode == 10)
             {
-                jobId--;
+                if(jobId==7)
+                {
+                    jobId = 1;
+                }
             }
+
             //显示战斗面板
             FightPanel fp = new FightPanel();
             fp.Show();

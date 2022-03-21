@@ -1,4 +1,6 @@
-﻿//我承认这里的代码写的不好，但是暂时找不到更好的办法了
+﻿//ASSIGN
+//循环数组分配技术
+//我承认这里的代码写的不好，但是暂时找不到更好的办法了
 //到这里，游戏规则已经写死了，所以这是这个项目不好的地方。
 //I admited the code here was very bad, but I cant find a way better than this.
 //The code here means game rules cant change again,thats the bad.
@@ -24,7 +26,7 @@ namespace WolfKillen
                 //分配猎人
                 if (playerArr[0] != 4) { playerArr = SixPlayersWhoHunter(playerArr); }
                 //分配白痴
-                if(playerArr[0] != 7) { playerArr = SixPlayersWhoStupid(playerArr); }
+                if(playerArr[0] != 6) { playerArr = SixPlayersWhoStupid(playerArr); }
                 //分配平民
                 if(playerArr[0] != 2) { playerArr = SixPlayersWhoVillager(playerArr); }
                 //分配狼人
@@ -49,7 +51,28 @@ namespace WolfKillen
                 else { playerArr = TenPlayersWhoWolf(playerArr, true); }
                 return playerArr;
             }
-            return playerArr;
+            else
+            {
+                //分配村民and狼人
+                if (playerArr[0] == 2) { playerArr = FullPlayersVillagerAndWolf(playerArr, true, false); }
+                else if (playerArr[0] == 1) { playerArr = FullPlayersVillagerAndWolf(playerArr, false, true); }
+                else { playerArr = FullPlayersVillagerAndWolf(playerArr, false, false); }
+                
+                //分女巫
+                if (playerArr[0] != 3) { playerArr = FullPlayersWhoWitch(playerArr); }
+                
+                //分配猎人
+                if (playerArr[0] != 4) { playerArr = FullPlayersWhoHunter(playerArr); }
+
+                //预言家
+                if (playerArr[0] != 5) { playerArr = FullPlayersWhoProphet(playerArr); }
+                //分配白痴
+                if (playerArr[0] != 6) { playerArr = FullPlayersWhoStupid(playerArr); }
+                //分配守卫
+                if (playerArr[0] != 7) { playerArr = FullPlayersWhoGuard(playerArr); }
+                
+                return playerArr;
+            }
         }
         int temp;
         private int[] SixPlayersWhoWitch(int[] playerArr)
@@ -102,7 +125,7 @@ namespace WolfKillen
                 temp--;
                 if ((playerArr[temp] == 0 && temp < 6) || (playerArr[temp] != 3 && playerArr[temp] != 4 && temp < 6))
                 {
-                    playerArr[temp] = 7;//7代表着白痴
+                    playerArr[temp] = 6;//6代表着白痴
                     break;
                 }
                 else
@@ -311,7 +334,137 @@ namespace WolfKillen
             return playerArr;
         }
 
-    } 
+        //-----------------十二人------------------
+        //为了方便，这里的村民和狼人合并处理
+        private int[] FullPlayersVillagerAndWolf(int[] playerArr,bool isPlayerVill,bool isPlayerWolf)
+        {
+            Random rd = new Random();
+            int villSub; int wolfSub;
+            int villMax=5; int wolfMax=4;//蜜汁bug的硬修补，这两个数字是经过n次调试决定的
+            if (isPlayerVill) { villMax--; }
+            if (isPlayerWolf) { wolfMax--; }
+            for(int i = 0; i < villMax; i++)
+            {
+                villSub = rd.Next(1, 11);
+                if (playerArr[villSub] == 0)
+                {
+                    playerArr[villSub] = 2;
+                }
+                else
+                {
+                    i--;//失败
+                }
+            }
+
+            //狼人成功次数
+            int WolfPassedNum = 0;
+            for (; ; )
+            {
+                wolfSub = rd.Next(1, 11);
+                if (playerArr[wolfSub] == 0 || playerArr[wolfSub] != 1)
+                {
+                    playerArr[wolfSub] = 1;
+                    WolfPassedNum++;
+                    if(WolfPassedNum>=wolfMax)
+                    {
+                        break;
+                    }
+                    continue;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            return playerArr;
+        }
+
+        //女巫的
+        private int[] FullPlayersWhoWitch(int[] playerArr)
+        {
+            Random r = new Random();
+            int temp;
+            for (; ; )
+            {
+                temp = r.Next(2, 12);
+                if (playerArr[temp] == 0 || (playerArr[temp] != 1 && playerArr[temp] !=2))
+                {
+                    playerArr[temp] = 3;
+                    break;
+                }
+                continue;
+            }
+            return playerArr;
+        }
+
+        private int[] FullPlayersWhoHunter(int[] playerArr)
+        {
+            Random r = new Random();
+            int temp;
+            for (; ; )
+            {
+                temp = r.Next(2, 12);
+                if (playerArr[temp] == 0 || (playerArr[temp] != 1 && playerArr[temp] != 2 && playerArr[temp] != 3))
+                {
+                    playerArr[temp] = 4;
+                    break;
+                }
+                continue;
+            }
+            return playerArr;
+        }
+
+        private int[] FullPlayersWhoProphet(int[] playerArr)
+        {
+            Random r = new Random();
+            int temp;
+            for (; ; )
+            {
+                temp = r.Next(2, 12);
+                if (playerArr[temp] == 0 || (playerArr[temp] != 1 && playerArr[temp] != 2 && playerArr[temp] != 3 && playerArr[temp] != 4))
+                {
+                    playerArr[temp] = 5;
+                    break;
+                }
+                continue;
+            }
+            return playerArr;
+        }
+
+        private int[] FullPlayersWhoStupid(int[] playerArr)
+        {
+            Random r = new Random();
+            int temp;
+            for (; ; )
+            {
+                temp = r.Next(2, 12);
+                if (playerArr[temp] == 0 || (playerArr[temp] != 1 && playerArr[temp] != 2 && playerArr[temp] != 3 && playerArr[temp] != 4 && playerArr[temp] != 5))
+                {
+                    playerArr[temp] = 6;
+                    break;
+                }
+                continue;
+            }
+            return playerArr;
+        }
+
+        private int[] FullPlayersWhoGuard(int[] playerArr)
+        {
+            Random r = new Random();
+            int temp;
+            for (; ; )
+            {
+                temp = r.Next(2, 12);
+                if (playerArr[temp] == 0 || (playerArr[temp] != 1 && playerArr[temp] != 2 && playerArr[temp] != 3 && playerArr[temp] != 4 && playerArr[temp] != 5&& playerArr[temp] != 6))
+                {
+                    playerArr[temp] = 7;
+                    break;
+                }
+                continue;
+            }
+            return playerArr;
+        }
+    }
 }
 
 
