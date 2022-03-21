@@ -41,3 +41,7 @@
 ### 协议
 
 GPL2.0开源协议。项目没有使用人工智能和机器学习，机器人的抉择是固定算法决定的
+
+我不建议翻译该应用程序，因为你极有可能将神职翻译成“god“ 但应该是”the job given by god“
+
+I dont advice you to translate this application ,because you may translate 神职 to "god".But that should be ”the job given by god“
