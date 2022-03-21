@@ -22,8 +22,8 @@ namespace WolfKillen
 
         public int playersMode = 0;
         public int jobId = 1;
-        public string[] JobImgPaths = new string[8] { "resc/theWolf.png", "resc/villager.png", "resc/witch.png", "resc/hunter.png", "resc/police.png", "resc/prophet.png", "resc/stupid.png", "resc/guard.png" };
-        public string[] JobNames = new string[8] { "狼人", "平民", "女巫", "猎人", "警长", "预言家", "白痴", "守卫" };
+        public string[] JobImgPaths = new string[7] { "resc/theWolf.png", "resc/villager.png", "resc/witch.png", "resc/hunter.png", "resc/prophet.png", "resc/stupid.png", "resc/guard.png" };
+        public string[] JobNames = new string[7] { "狼人", "平民", "女巫", "猎人", "预言家", "白痴", "守卫" };
         public string[] PlayerNames = new string[12] { "我", "Bot1", "Bot2", "Bot3", "Bot4", "Bot5", "Bot6", "Bot7", "Bot8", "Bot9", "Bot10", "Bot11" };
         public bool[] PlayerLives = new bool[12] { true, true, true, true, true, true, true, true, true, true, true, true };
         public int[] PlayerJobs = new int[12] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -91,13 +91,21 @@ namespace WolfKillen
         public void LocalPlay()
         {
             time.Content = "第 1 天夜晚";
-            BotsActive ba = new BotsActive();
+            Assign assi = new Assign();
             if(playersMode==6)
             {
                 //六人模式下的分组
                 //rule 女巫 猎人 白痴 一民 二狼
                 PlayerJobs[0] = jobId;
-                PlayerJobs = ba.AssignPlayerRole(playersMode, PlayerJobs);
+                PlayerJobs = assi.AssignPlayerRole(playersMode, PlayerJobs);
+            }
+            else if(playersMode == 10)
+            {
+                //六人模式下的分组
+                //rule 女巫 猎人 白痴 一民 二狼
+                PlayerJobs[0] = jobId;
+                PlayerJobs = assi.AssignPlayerRole(playersMode, PlayerJobs);
+                //3狼,预言家,女巫,猎人，3民，守卫 第二天白日掉落一个警察头衔
             }
             DayToNight();
 

@@ -29,8 +29,8 @@ namespace WolfKillen
         private string menuMode = "选择玩家人数";
         private bool isOnMenuPage = true;
         public int jobId = 1;
-        public string[] JobImgPaths = new string[8] { "resc/theWolf.png", "resc/villager.png", "resc/witch.png", "resc/hunter.png", "resc/police.png", "resc/prophet.png", "resc/stupid.png", "resc/guard.png" };
-        public string[] JobNames = new string[8] { "狼人", "平民", "女巫", "猎人", "警长", "预言家", "白痴", "守卫" };
+        public string[] JobImgPaths = new string[7] { "resc/theWolf.png", "resc/villager.png", "resc/witch.png", "resc/hunter.png", "resc/prophet.png", "resc/stupid.png", "resc/guard.png" };
+        public string[] JobNames = new string[7] { "狼人", "平民", "女巫", "猎人", "预言家", "白痴", "守卫" };
         public bool onlinePlay = false;
         //是否打开了对决窗口
         public bool windowRelax = false;
@@ -59,7 +59,7 @@ namespace WolfKillen
                 //显示战斗面板
                 fp.Show();
                 fp.GetPlayParameter(playersMode, jobId, JobImgPaths, JobNames, onlinePlay);
-                fp.LocalPlay();
+                fp.LocalPlay();//这是蜜汁bug 如果不重新执行，就会发现上一行传入的值不存在了
                 windowRelax = true;
                 this.Close();
                 
@@ -153,22 +153,28 @@ namespace WolfKillen
             {
                 if (jobId + 1 == 5)
                 {
-                    //这里是选择到警长的情况
+                    //这里是选择到预言家的情况
                     jobId = 6;
                 }
-                else if (jobId + 1 == 6)
-                {
-                    //这里是选择到预言家的情况
-                    jobId = 7;
-                }
-                else if(jobId + 1 == 8)
+                else if(jobId + 1 == 7)
                 {
                     //这里是选择到守卫的情况
-                    jobId = 7;
+                    jobId = 6;
                 }
                 else
                 {
                     jobId += 1;
+                }
+            }
+            else if(playersMode == 10)
+            {
+                if(jobId + 1 == 6)
+                {
+                    jobId = 7;
+                }
+                else
+                {
+                    jobId++;
                 }
             }
             else
@@ -192,15 +198,10 @@ namespace WolfKillen
             {
                 if (jobId - 1 == 5)
                 {
-                    //这里是选择到警长的情况
-                    jobId = 4;
-                }
-                else if (jobId - 1 == 6)
-                {
                     //这里是选择到预言家的情况
                     jobId = 4;
                 }
-                else if (jobId - 1 == 8)
+                else if (jobId - 1 == 7)
                 {
                     //这里是选择到守卫的情况
                     jobId = 1;
@@ -208,6 +209,18 @@ namespace WolfKillen
                 else
                 {
                     jobId -= 1;
+                }
+
+            }
+            else if (playersMode == 10)
+            {
+                if (jobId - 1 == 6)
+                {
+                    jobId = 5;
+                }
+                else
+                {
+                    jobId--;
                 }
             }
             else
