@@ -11,7 +11,7 @@
 
 应用程序名：狼人杀 - WolfKillen
 
-语言：中文简体，不支持多语言
+语言：中文简体，不支持多语言(Only Chinese-Simple.Didnt support more language)
 
 编程语言：.Net Framwork6.0 C#
 
