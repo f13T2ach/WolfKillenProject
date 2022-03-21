@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\iconfont.ttf" />
+    <None Remove="resc\guard.png" />
+    <None Remove="resc\hunter.png" />
+    <None Remove="resc\police.png" />
+    <None Remove="resc\prophet.png" />
+    <None Remove="resc\stupid.png" />
+    <None Remove="resc\theWolf.png" />
+    <None Remove="resc\villager.png" />
+    <None Remove="resc\witch.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Fonts\iconfont.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="resc\guard.png" />
+    <Resource Include="resc\prophet.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="resc\hunter.png" />
+    <Resource Include="resc\police.png" />
+    <Resource Include="resc\stupid.png" />
+    <Resource Include="resc\theWolf.png" />
+    <Resource Include="resc\villager.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="resc\witch.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="page\" />
+  </ItemGroup>
+
+</Project>

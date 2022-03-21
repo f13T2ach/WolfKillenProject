@@ -1,0 +1,152 @@
+﻿<Window x:Class="WolfKillen.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WolfKillen"
+        mc:Ignorable="d"
+        Closing="Window_Closing"
+        Title="狼人杀" Height="650" Width="1100">
+    <Viewbox>
+        <Grid>
+            <Grid Margin="10,10,622,10">
+                <!--左侧栏-->
+                <Label MaxWidth="550" Margin="10,131,0,293">
+                    <TextBlock x:Name="ThisTitle" TextWrapping="Wrap"
+            Text="狼人杀           未定义项" Height="152" Width="422" FontSize="60" TextAlignment="Left" HorizontalAlignment="Center"  />
+                </Label>
+                <Border x:Name="setBtn" CornerRadius="20" Background="#f0f0f4" Margin="25,292,234,259">
+
+                    <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+                        <!--如果text的值是 &#xe631;&#xe610;设置 的话，生成出来会变成方框。不知道为啥-->
+                        <TextBlock Foreground="DimGray"
+                       Margin="10"
+                       FontSize="22"
+                       Height="20"
+                       FontFamily="pack://application:,,,/Fonts/#IconFont"
+                       Text="&#xe631;&#xe610;设置"/>
+                    </StackPanel>
+                </Border>
+                <Border x:Name="conBtn" CornerRadius="20" Background="#f0f0f4" Margin="25,337,234,214" MouseLeftButtonDown="conBtnTxClicked">
+
+                    <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+                        <!--如果text的值是 &#xe631;&#xe610;设置 的话，生成出来会变成方框。不知道为啥-->
+                        <TextBlock x:Name="conBtnTx" Foreground="DimGray" 
+                       Margin="10"
+                       FontSize="22"
+                       Height="20"
+                       FontFamily="pack://application:,,,/Fonts/#IconFont"
+                       Text="连接到服务器"/>
+                    </StackPanel>
+                </Border>
+                <Border x:Name="creBtn" CornerRadius="20" Background="#f0f0f4" Margin="25,382,234,169">
+
+                    <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+                        <!--如果text的值是 &#xe631;&#xe610;设置 的话，生成出来会变成方框。不知道为啥-->
+                        <TextBlock Foreground="DimGray"
+                       Margin="10"
+                       FontSize="22"
+                       Height="20"
+                       FontFamily="pack://application:,,,/Fonts/#IconFont"
+                       Text="创建服务器"/>
+                    </StackPanel>
+                </Border>
+                <TextBlock HorizontalAlignment="Left" Height="17" Margin="0,564,0,0" TextWrapping="Wrap" Text="F13T2ach · 你可以使用内网穿透以与世界各地的好友一同游玩(默认端口:17694)" VerticalAlignment="Top" Width="432" Foreground="DimGray"/>
+            </Grid>
+            <!--选玩家栏-->
+            <Grid HorizontalAlignment="Left" Height="591" Margin="452,0,0,0" VerticalAlignment="Center" Width="612">
+                <Border x:Name="_6plbtn" CornerRadius="20" Background="#f0f0f4" Margin="130,141,130,401" MouseLeftButtonDown="SixPlayers">
+
+                    <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock x:Name="_6plbtnTx" Foreground="DimGray"
+                       Margin="10"
+                       FontSize="22"
+                       Height="20"
+                       FontFamily="pack://application:,,,/Fonts/#IconFont"
+                       Text="6人游戏"/>
+                    </StackPanel>
+                </Border>
+                <Border x:Name="_10plbtn" CornerRadius="20" Background="#f0f0f4" Margin="130,247,130,295" Visibility="Hidden" MouseLeftButtonDown="TenPlayers">
+
+                    <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock Foreground="DimGray"
+                       Margin="10"
+                       FontSize="22"
+                       Height="20"
+                       FontFamily="pack://application:,,,/Fonts/#IconFont"
+                       Text="10人游戏"/>
+                    </StackPanel>
+                </Border>
+                <Border x:Name="_12plbtn" CornerRadius="20" Background="#f0f0f4" Margin="130,352,130,190" Visibility="Hidden" MouseLeftButtonDown="TwelvePlayers">
+
+                    <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock Foreground="DimGray"
+                       Margin="10"
+                       FontSize="22"
+                       Height="20"
+                       FontFamily="pack://application:,,,/Fonts/#IconFont"
+                       Text="12人游戏"/>
+                    </StackPanel>
+                </Border>
+                <!--选角色-->
+                <Grid x:Name="setJob" HorizontalAlignment="Center" Height="386" Margin="0,195,0,0" VerticalAlignment="Top" Width="592" Visibility="Visible">
+                    <Border x:Name="leftCh" CornerRadius="20" Background="#f0f0f4" Margin="48,28,479,286" RenderTransformOrigin="0.5,0.5" MouseLeftButtonDown="leftChClicked">
+                        <Border.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Border.RenderTransform>
+
+                        <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+                            <!--如果text的值是 &#xe631;&#xe610;设置 的话，生成出来会变成方框。不知道为啥-->
+                            <TextBlock Foreground="DimGray"
+                       Margin="10"
+                       FontSize="22"
+                       Height="20"
+                       FontFamily="pack://application:,,,/Fonts/#IconFont"
+                       Text="&lt;"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border x:Name="rightCh" CornerRadius="20" Background="#f0f0f4" Margin="478,28,48,286" RenderTransformOrigin="0.5,0.5" MouseLeftButtonDown="rightChClicked">
+                        <Border.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="1"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Border.RenderTransform>
+
+                        <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+                            <!--如果text的值是 &#xe631;&#xe610;设置 的话，生成出来会变成方框。不知道为啥-->
+                            <TextBlock Foreground="DimGray"
+                       Margin="10"
+                       FontSize="22"
+                       Height="20"
+                       FontFamily="pack://application:,,,/Fonts/#IconFont"
+                       Text=">"/>
+                        </StackPanel>
+                    </Border>
+                    <Image x:Name="jobImage" HorizontalAlignment="Center" Height="86" Margin="0,22,0,0" VerticalAlignment="Top" Width="84" Source="/resc/theWolf.png"/>
+                    <Label Content="或" HorizontalAlignment="Center" Height="28" Margin="0,134,0,0" VerticalAlignment="Top" Width="26" FontSize="16"/>
+                    <Border x:Name="computerSet" CornerRadius="20" Background="#f0f0f4" Margin="130,193,130,141" MouseLeftButtonDown="computerSetClicked">
+
+                        <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal" >
+                            <TextBlock Foreground="DimGray" x:Name="csTx"
+                       Margin="10"
+                       FontSize="22"
+                       Height="20"
+                       FontFamily="pack://application:,,,/Fonts/#IconFont"
+                       Text="让电脑为我挑选角色"/>
+                        </StackPanel>
+                    </Border>
+                    <Label x:Name="tips" Content="我好像忘记要提示你什么了" HorizontalAlignment="Left" Height="45" Margin="61,250,0,0" VerticalAlignment="Top" Width="483"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>
