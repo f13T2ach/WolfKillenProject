@@ -1,6 +1,6 @@
 <div align="center">
 
-![Icon](https://raw.githubusercontent.com/JustArchiNET/ArchiSteamFarm/main/resources/ASF_184x184.png)
+![Icon](https://s3.bmp.ovh/imgs/2022/03/eee754ba9e4a0cf6.png)
 
 # ArchiSteamFarm
 </div>
