@@ -15,16 +15,16 @@
                     <TextBlock x:Name="ThisTitle" TextWrapping="Wrap"
             Text="狼人杀           未定义项" Height="152" Width="422" FontSize="60" TextAlignment="Left" HorizontalAlignment="Center"  />
                 </Label>
-                <Border x:Name="setBtn" CornerRadius="20" Background="#f0f0f4" Margin="25,292,234,259">
+                <Border x:Name="setBtn" CornerRadius="20" Background="#f0f0f4" Margin="25,292,234,259" MouseLeftButtonDown="setBtn_MouseLeftButtonDown">
 
                     <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
                         <!--如果text的值是 &#xe631;&#xe610;设置 的话，生成出来会变成方框。不知道为啥-->
                         <TextBlock Foreground="DimGray"
                        Margin="10"
-                       FontSize="22"
+                       FontSize="21"
                        Height="20"
                        FontFamily="pack://application:,,,/Fonts/#IconFont"
-                       Text="&#xe631;&#xe610;设置"/>
+                       Text="&#xe6de;&#xe610;关于"/>
                     </StackPanel>
                 </Border>
                 <Border x:Name="conBtn" CornerRadius="20" Background="#f0f0f4" Margin="25,337,234,214" MouseLeftButtonDown="conBtnTxClicked">
@@ -36,19 +36,7 @@
                        FontSize="22"
                        Height="20"
                        FontFamily="pack://application:,,,/Fonts/#IconFont"
-                       Text="连接到服务器"/>
-                    </StackPanel>
-                </Border>
-                <Border x:Name="creBtn" CornerRadius="20" Background="#f0f0f4" Margin="25,382,234,169">
-
-                    <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
-                        <!--如果text的值是 &#xe631;&#xe610;设置 的话，生成出来会变成方框。不知道为啥-->
-                        <TextBlock Foreground="DimGray"
-                       Margin="10"
-                       FontSize="22"
-                       Height="20"
-                       FontFamily="pack://application:,,,/Fonts/#IconFont"
-                       Text="创建服务器"/>
+                       Text="开发者信息"/>
                     </StackPanel>
                 </Border>
                 <TextBlock HorizontalAlignment="Left" Height="17" Margin="0,564,0,0" TextWrapping="Wrap" Text="F13T2ach · 你可以使用内网穿透以与世界各地的好友一同游玩(默认端口:17694)" VerticalAlignment="Top" Width="432" Foreground="DimGray"/>

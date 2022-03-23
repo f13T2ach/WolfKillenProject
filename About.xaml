@@ -1,0 +1,33 @@
+﻿<Window x:Class="WolfKillen.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WolfKillen"
+        mc:Ignorable="d"
+        Title="Dialog" Height="541" Width="800">
+    <Viewbox>
+        <Grid Height="279">
+            <TextBlock x:Name="ThisTitle" TextWrapping="Wrap"
+            Text=" 狼人杀" Width="422" FontSize="25" TextAlignment="Left" HorizontalAlignment="Center" Height="38" VerticalAlignment="Top" Margin="0,10,0,0"  />
+            <TextBlock HorizontalAlignment="Left" Height="18" Margin="353,20,0,0" TextWrapping="Wrap" Text="WolfKillen" VerticalAlignment="Top" Width="59" Foreground="#FF383838"/>
+            <Label Content="F13T2ach(Redmaple) Coded" HorizontalAlignment="Left" Height="24" Margin="0,255,0,0" VerticalAlignment="Top" Width="402" FontSize="11"/>
+            <Image HorizontalAlignment="Center" Height="46" Margin="0,10,0,0" VerticalAlignment="Top" Width="44" Source="\resc\theWolf.png"/>
+            <TextBlock HorizontalAlignment="Center" Height="109" TextWrapping="Wrap"  VerticalAlignment="Center" Width="238" TextAlignment="Center">
+            <Run>这是屑C#码农练手的项目</Run>
+            <LineBreak/>
+            <Run>大概率是不会有项目维护的</Run>
+            <LineBreak/>
+            <Run>然后就是做来玩玩，消磨一下时间</Run>
+            <LineBreak/>
+            <Run>C-S交互我也懒得做了，希望有大佬帮我补上</Run>
+            <LineBreak/>
+            <Run>总之就先这样吧</Run>
+            <LineBreak/>
+            <Run>对了，代码想用就拿去用罢</Run>
+            <LineBreak/>
+            <Run>别拿去赚钱就行了😂</Run>
+            </TextBlock>
+        </Grid>
+    </Viewbox>
+</Window>

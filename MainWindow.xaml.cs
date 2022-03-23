@@ -85,7 +85,6 @@ namespace WolfKillen
             _6plbtnTx.Text = "以 狼人 开始";
             menuMode = "选择你的角色";
             ThisTitle.Text = "狼人杀           " + menuMode;
-            creBtn.Visibility = Visibility.Hidden;
             conBtnTx.Text = "退回上一步";
             isOnMenuPage = false;
             setJob.Visibility = Visibility.Visible;
@@ -134,8 +133,7 @@ namespace WolfKillen
             _6plbtnTx.Text = "6人游戏";
             menuMode = "选择玩家人数";
             ThisTitle.Text = "狼人杀           " + menuMode;
-            creBtn.Visibility = Visibility.Visible;
-            conBtnTx.Text = "连接到服务器";
+            conBtnTx.Text = "开发者信息";
             setJob.Visibility = Visibility.Hidden;
             //设置一下jobId 防止重新调节的时候出故障
             jobId = 1;
@@ -151,7 +149,7 @@ namespace WolfKillen
             }
             else 
             {
-                MessageBox.Show("现在不支持服务器相关的内容\n于是这里被用来显示调试信息。\n玩家人数(最后一次点击):"+playersMode+"\n是否在选玩家页面:"+isOnMenuPage);
+                MessageBox.Show("Develop Data\n玩家人数(最后一次点击):"+playersMode+"\n是否在选玩家页面:"+isOnMenuPage);
             }
         }
 
@@ -286,6 +284,13 @@ namespace WolfKillen
             {
                 Environment.Exit(0);
             }
+        }
+
+        //关于按钮
+        private void setBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            About ab = new About();
+            ab.Show();
         }
     }
 }

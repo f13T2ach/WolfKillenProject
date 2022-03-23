@@ -10,12 +10,18 @@
     <Compile Update="FightPanel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="About.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="FightPanel.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="About.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
