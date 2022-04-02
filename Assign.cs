@@ -1,5 +1,5 @@
 ﻿//ASSIGN
-//循环数组分配技术
+//循环数组分配寄术
 //我承认这里的代码写的不好，但是暂时找不到更好的办法了
 //到这里，游戏规则已经写死了，所以这是这个项目不好的地方。
 //I admited the code here was very bad, but I cant find a way better than this.
