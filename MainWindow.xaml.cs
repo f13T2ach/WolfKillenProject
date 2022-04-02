@@ -3,6 +3,7 @@
 //Made by F13T2ach in China.
 //图标网站：https://www.iconfont.cn/
 //引入图标教程：https://blog.csdn.net/YouyoMei/article/details/86703021
+//请你注意 这整个项目都是屎山，游戏规则深深嵌入字里行间。如果你认真看的话，你可以看出我试图摆脱屎山困境的痕迹。
 using System;
 using System.Collections.Generic;
 using System.Linq;
