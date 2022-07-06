@@ -10,7 +10,7 @@
     <Viewbox>
         <Grid Height="650" Width="1120">
             <Grid HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="1120">
-                <Label x:Name="time" Content="正在载入时间" HorizontalAlignment="Left" Height="51" Margin="10,10,0,0" VerticalAlignment="Top" Width="269" FontSize="34"/>
+                <Label x:Name="time" Content="第1个白天" HorizontalAlignment="Left" Height="51" Margin="10,10,0,0" VerticalAlignment="Top" Width="269" FontSize="34"/>
                 <Border x:Name="onlinePlList" CornerRadius="20" Background="#f0f0f4" Margin="896,16,10,14">
 
                     <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
@@ -20,12 +20,12 @@
                         FontSize="22"
                         Height="20"
                         FontFamily="pack://application:,,,/Fonts/#IconFont"
-                        Text="在线玩家(0/00)"/>
+                        Text="存活玩家数量"/>
                     </StackPanel>
                 </Border>
                 <Label HorizontalAlignment="Center" Height="55" VerticalAlignment="Top" Width="252" Margin="0,16,0,0">
                     <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal" Height="49" Width="268">
-                        <TextBlock Foreground="DimGray"
+                        <TextBlock x:Name="MainPlayerRole" Foreground="DimGray"
                        FontSize="27"
                        Height="54"
                        FontFamily="pack://application:,,,/Fonts/#IconFont"
@@ -43,7 +43,7 @@
                        FontSize="40"
                        Height="54"
                        FontFamily="pack://application:,,,/Fonts/#IconFont"
-                       Text="正在加载事件" Width="1126" TextAlignment="Center"/>
+                       Text="无内容" Width="1126" TextAlignment="Center"/>
                         <!--如果text的值是 &#xe631;&#xe610;设置 的话，生成出来会变成方框。不知道为啥-->
                         <!--如果text的值是 &#xe631;&#xe610;设置 的话，生成出来会变成方框。不知道为啥-->
                     </StackPanel>
@@ -97,7 +97,7 @@
                        FontSize="30"
                        Height="29"
                        FontFamily="pack://application:,,,/Fonts/#IconFont"
-                       Text="正在加载你的选择" Width="688" TextAlignment="Center"/>
+                       Text="你的选择" Width="688" TextAlignment="Center"/>
             </StackPanel>
 
             <Border x:Name="userbtn1" CornerRadius="20" Background="#f0f0f4" Margin="310,472,310,133" MouseLeftButtonDown="userbtn1_MouseLeftButtonDown">
@@ -107,7 +107,7 @@
                         FontSize="25"
                         Height="29"
                         FontFamily="pack://application:,,,/Fonts/#IconFont"
-                        Text="按钮选项1" Width="477" TextAlignment="Center"/>
+                        Text="userbtn1_MouseLeftButtonDown" Width="477" TextAlignment="Center"/>
                     <!--如果text的值是 &#xe631;&#xe610;设置 的话，生成出来会变成方框。不知道为啥-->
                 </StackPanel>
             </Border>
@@ -118,7 +118,7 @@
                         FontSize="25"
                         Height="29"
                         FontFamily="pack://application:,,,/Fonts/#IconFont"
-                        Text="按钮选项2" Width="477" TextAlignment="Center"/>
+                        Text="userbtn2_MouseLeftButtonDown" Width="477" TextAlignment="Center"/>
                     <!--如果text的值是 &#xe631;&#xe610;设置 的话，生成出来会变成方框。不知道为啥-->
                 </StackPanel>
             </Border>

@@ -49,19 +49,21 @@ namespace WolfKillen
         private void SixPlayers(object sender, MouseButtonEventArgs e)
         {
             FightPanel fp = new FightPanel();
+            //如果在选人数界面
             if (isOnMenuPage)
             {
                 playersMode = 6;
                 ShowJobSelectPanel();
             }
-            else
+            else//如果按钮是 以。。。开始
             {
+                windowRelax = true;
+                this.Close();
                 //显示战斗面板
                 fp.Show();
                 fp.GetPlayParameter(playersMode, jobId, JobImgPaths, JobNames, onlinePlay);
                 fp.LocalPlay();//这是蜜汁bug 如果不重新执行，就会发现上一行传入的值不存在了
-                windowRelax = true;
-                this.Close();
+                
                 
             }
         }
@@ -268,9 +270,11 @@ namespace WolfKillen
                 }
             }
 
-            //显示战斗面板
             FightPanel fp = new FightPanel();
+            //显示战斗面板
             fp.Show();
+            fp.GetPlayParameter(playersMode, jobId, JobImgPaths, JobNames, onlinePlay);
+            fp.LocalPlay();//这是蜜汁bug 如果不重新执行，就会发现上一行传入的值不存在了
             windowRelax = true;
             this.Close();
             

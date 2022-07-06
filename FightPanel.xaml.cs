@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,8 +31,9 @@ namespace WolfKillen
         public bool onlinePlay = false;
         public int days = 1;
         public bool isNight = true;
-        public int selectedPlId = 1;
-        public int btn1Mode = 0;
+        public int selectedPlId = 1;//选择的玩家
+        public int btn1Mode = 0;//按钮响应模式 1表示狼人操作 2表示女巫操作 3表示预言家操作 4表示守卫操作 5表示投票操作 6表示发言操作
+        public int selcMode = 0;//选择模式 0表示名称选择 1表示图片选择
         public FightPanel()
         {
             InitializeComponent();
@@ -45,6 +47,14 @@ namespace WolfKillen
             }
         }
 
+        /// <summary>
+        /// 传入游戏模式
+        /// </summary>
+        /// <param name="playersMode_">游戏人数</param>
+        /// <param name="jobId_">玩家的job</param>
+        /// <param name="jobImgPaths_">这些job的图标位置</param>
+        /// <param name="jobNames_">这些job的名称</param>
+        /// <param name="onlinePlay_">是否是在线游玩（已弃用）</param>
         public void GetPlayParameter(int playersMode_,int jobId_,string[] jobImgPaths_,string[] jobNames_,bool onlinePlay_)
         {
             playersMode = playersMode_;
@@ -111,6 +121,7 @@ namespace WolfKillen
                 PlayerJobs = assi.AssignPlayerRole(playersMode, PlayerJobs);
                 //https://zhuanlan.zhihu.com/p/63750422 4狼4民 预言家、女巫、猎人、白痴
             }
+            
             DayToNight();
 
         }
@@ -121,7 +132,15 @@ namespace WolfKillen
             {
                 selectedPlId = playersMode;
             }
-            playerName.Text = PlayerNames[selectedPlId - 1];
+
+            if (selcMode == 0)
+            {
+                playerName.Text = PlayerNames[selectedPlId - 1];
+            }
+            else
+            {
+                jobImage.Source = new BitmapImage(new Uri(JobImgPaths[selectedPlId - 1]));//图片的切换
+            }
         }
 
         private void leftChClicked(object sender, MouseButtonEventArgs e)
@@ -137,24 +156,101 @@ namespace WolfKillen
         //白天转黑夜
         private void DayToNight()
         {
+            if (PlayerJobs[0] != 0) { MainPlayerRole.Text = JobNames[PlayerJobs[0] - 1]; };//因为1是JobNames下标0的内容，所以往前推移。
             jobImage.Visibility = Visibility.Hidden;
             leftCh.Visibility = Visibility.Hidden;
             playerName.Visibility = Visibility.Hidden;
             rightCh.Visibility = Visibility.Hidden;
-            ObjectHint.Text = "天黑请闭眼";
-            choosetitle.Text = "你的选择是";
+            choosetitle.Text = "你没得选";
             userbtn2.Visibility = Visibility.Hidden;
-            userbtn1Tx.Text = "闭眼";
+            userbtn1.Visibility = Visibility.Hidden;
+            Night();
             btn1Mode = 1;
         }
 
-        //狼人睁眼
+        //晚上
+        private void Night()
+        {
+            //狼人睁眼
+            ThreadStart threadStart = new ThreadStart(WolfOpenEye);//通过ThreadStart委托告诉子线程执行什么方法　　
+            Thread thread = new Thread(threadStart);
+            thread.Start();
+        }
+
+        //白天
+        private void Day()
+        {
+
+        }
+
+        //黑夜转白天
+        private void NightToDay()
+        {
+            jobImage.Visibility = Visibility.Hidden;
+            leftCh.Visibility = Visibility.Hidden;
+            playerName.Visibility = Visibility.Hidden;
+            rightCh.Visibility = Visibility.Hidden;
+            ObjectHint.Text = "昨晚是个[0]夜，[1]被刀了";
+            choosetitle.Text = "你没得选";
+            userbtn2.Visibility = Visibility.Hidden;
+            Day();
+            btn1Mode = 1;
+        }
+        //狼人睁眼 用线程调用
         private void WolfOpenEye()
         {
-            ObjectHint.Text = "狼人请睁眼";
-            System.Threading.Thread.Sleep(1000);
-            ObjectHint.Text = "狼人，请选择你要带走的玩家";
-            
+            this.Dispatcher.Invoke(new Action(() => { ObjectHint.Text = "天黑请闭眼"; }));
+            Thread.Sleep(1000);
+            if (PlayerJobs[0] != 0)
+            {
+                this.Dispatcher.Invoke(new Action(() => { ObjectHint.Text = "狼人请睁眼"; }));
+                Thread.Sleep(1000);
+            }
+            this.Dispatcher.Invoke(new Action(() => { ObjectHint.Text = "狼人，请选择你要带走的玩家"; }));
+            if (PlayerJobs[0] == 1)//如果玩家是狼人。
+            {
+                this.Dispatcher.Invoke(new Action(() =>
+                {
+                    SelectPanelCtr(1);
+                }));
+                this.Dispatcher.Invoke(new Action(() => { choosetitle.Text = "你要刀人还是跳过"; }));
+                this.Dispatcher.Invoke(new Action(() => { userbtn1Tx.Text = "刀我选的人"; }));
+                this.Dispatcher.Invoke(new Action(() => { userbtn2Tx.Text = "跳过"; }));
+            }
+        }
+
+        /// <summary>
+        /// 选择面板的控制
+        /// </summary>
+        /// <param name="type">0表示全消失 1表示全显示除jobimage 2表示全显示除playerName</param>
+        private void SelectPanelCtr(int type)
+        {
+            if (type == 1)
+            {
+                leftCh.Visibility = Visibility.Visible;
+                playerName.Visibility = Visibility.Visible;
+                rightCh.Visibility = Visibility.Visible;
+                userbtn2.Visibility = Visibility.Visible;
+                userbtn1.Visibility = Visibility.Visible;
+            }
+            else if(type == 2)
+            {
+                leftCh.Visibility = Visibility.Visible;
+                jobImage.Visibility = Visibility.Visible;
+                rightCh.Visibility = Visibility.Visible;
+                userbtn2.Visibility = Visibility.Visible;
+                userbtn1.Visibility = Visibility.Visible;
+            }
+            else if(type == 0)
+            {
+                leftCh.Visibility = Visibility.Hidden;
+                jobImage.Visibility = Visibility.Hidden;
+                playerName.Visibility = Visibility.Hidden;
+                rightCh.Visibility = Visibility.Hidden;
+                userbtn2.Visibility = Visibility.Hidden;
+                userbtn1.Visibility = Visibility.Hidden;
+            }
+
         }
         private void userbtn1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
