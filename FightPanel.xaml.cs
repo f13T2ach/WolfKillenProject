@@ -27,12 +27,13 @@ namespace WolfKillen
         public string[] JobNames = new string[7] { "狼人", "平民", "女巫", "猎人", "预言家", "白痴", "守卫" };
         public string[] PlayerNames = new string[12] { "我", "Bot1", "Bot2", "Bot3", "Bot4", "Bot5", "Bot6", "Bot7", "Bot8", "Bot9", "Bot10", "Bot11" };
         public bool[] PlayerLives = new bool[12] { true, true, true, true, true, true, true, true, true, true, true, true };
-        public int[] PlayerJobs = new int[12] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        public int[] PlayerJobs = new int[12] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };//职业是-1 表示死亡
+        public string[] PlayerTags = new string[12] { "", "", "", "", "", "", "", "", "", "", "", "" };
         public bool onlinePlay = false;
         public int days = 1;
         public bool isNight = true;
         public int selectedPlId = 1;//选择的玩家
-        public int btn1Mode = 0;//按钮响应模式 1表示狼人操作 2表示女巫操作 3表示预言家操作 4表示守卫操作 5表示投票操作 6表示发言操作
+        public int btn1Mode = 0;//按钮响应模式 1表示狼人操作 2表示投票操作 3表示女巫操作 4表示猎人操作 5表示投票操作 6表示白痴的亮出身份免死操作 7表示守护操作
         public int selcMode = 0;//选择模式 0表示名称选择 1表示图片选择
         public FightPanel()
         {
@@ -121,10 +122,24 @@ namespace WolfKillen
                 PlayerJobs = assi.AssignPlayerRole(playersMode, PlayerJobs);
                 //https://zhuanlan.zhihu.com/p/63750422 4狼4民 预言家、女巫、猎人、白痴
             }
+            PlayerStat();
+            
             
             DayToNight();
 
         }
+
+        public void PlayerStat()
+        {
+            playerNames.Content = "我\nbot1\nbot2\nbot3\nbot4\nbot5\nbot6\nbot7\nbot8\nbot9\nbot10\nbot11";
+            if(PlayerJobs[0]==1)
+            {
+
+            }
+        }
+
+        //调节按钮
+        #region
         private void rightChClicked(object sender, MouseButtonEventArgs e)
         {
             selectedPlId++;
@@ -153,10 +168,12 @@ namespace WolfKillen
             }
             playerName.Text = PlayerNames[selectedPlId - 1];
         }
+        #endregion
 
         //白天转黑夜
         private void DayToNight()
         {
+            isNight = true;
             if (PlayerJobs[0] != 0) { MainPlayerRole.Text = JobNames[PlayerJobs[0] - 1]; };//因为1是JobNames下标0的内容，所以往前推移。
             jobImage.Visibility = Visibility.Hidden;
             leftCh.Visibility = Visibility.Hidden;
@@ -166,6 +183,7 @@ namespace WolfKillen
             userbtn2.Visibility = Visibility.Hidden;
             userbtn1.Visibility = Visibility.Hidden;
             Night();
+            //复位btnmode
             btn1Mode = 1;
         }
 
@@ -181,7 +199,8 @@ namespace WolfKillen
         //白天
         private void Day()
         {
-
+            days += 1;
+            isNight = false;
         }
 
         //黑夜转白天
@@ -220,6 +239,8 @@ namespace WolfKillen
             }
         }
 
+
+
         /// <summary>
         /// 选择面板的控制
         /// </summary>
@@ -257,13 +278,21 @@ namespace WolfKillen
         {
             if(btn1Mode == 1)
             {
-
+                if(selectedPlId == 1||PlayerJobs[selectedPlId]==1)
+                {
+                    //当刀人指向自己或者狼人
+                    MessageBox.Show("对象不能是狼人", "请注意", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
             }
         }
 
-        private void userbtn2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private int userbtn2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            if(btn1Mode==1)
+            {
+                return -1;//表示跳过
+            }
+            return -2;//表示出错
         }
         private void buttonLogConsole_Click(object sender, RoutedEventArgs e)
         {

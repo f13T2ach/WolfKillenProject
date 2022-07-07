@@ -91,6 +91,24 @@
 
                 <TextBlock x:Name="playerName"  TextAlignment="Center" Text="我" HorizontalAlignment="Center" Height="54" VerticalAlignment="Top" Width="432" FontSize="34" Margin="0,133,0,0"/>
                 <Image x:Name="jobImage" HorizontalAlignment="Center" Height="86" Margin="0,103,0,0" VerticalAlignment="Top" Width="84" Source="/resc/theWolf.png"/>
+                <Border x:Name="leftCh_Copy" CornerRadius="20" Background="#f0f0f4" Margin="868,-2,10,0" RenderTransformOrigin="0.5,0.5" MouseLeftButtonDown="leftChClicked">
+                    <Border.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Border.RenderTransform>
+
+                    <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Grid Width="238">
+                            <Label x:Name="playerNames" Content="玩家列表" HorizontalAlignment="Left" Height="320" Margin="10,0,0,0" VerticalAlignment="Center" Width="160"/>
+                            <Label x:Name="playerData" Content="玩家详细" HorizontalAlignment="Left" Height="320" Margin="175,0,0,0" VerticalAlignment="Center" Width="63"/>
+
+                        </Grid>
+                    </StackPanel>
+                </Border>
             </Grid>
             <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal" Width="690" Margin="0,418,0,199">
                 <TextBlock x:Name="choosetitle" Foreground="Black"
@@ -135,6 +153,7 @@
                        Text="&#xe6de;"/>
                 </StackPanel>
             </Border>
+            <Label Content="关闭 | 失效控件" VerticalContentAlignment="Center" Height="48" Margin="310,592,310,0" VerticalAlignment="Top" Width="500" Background="#FFFF5050" Foreground="White" FontSize="20"/>
 
         </Grid>
     </Viewbox>
