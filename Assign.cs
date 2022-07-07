@@ -5,6 +5,7 @@
 //I admited the code here was very bad, but I cant find a way better than this.
 //The code here means game rules cant change again,thats the bad.
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -336,11 +337,12 @@ namespace WolfKillen
 
         //-----------------十二人------------------
         //为了方便，这里的村民和狼人合并处理
+        //四民三狼五神职
         private int[] FullPlayersVillagerAndWolf(int[] playerArr,bool isPlayerVill,bool isPlayerWolf)
         {
             Random rd = new Random();
             int villSub; int wolfSub;
-            int villMax=5; int wolfMax=4;//蜜汁bug的硬修补，这两个数字是经过n次调试决定的
+            int villMax=4; int wolfMax=3;//蜜汁bug的硬修补，这两个数字是经过n次调试决定的
             if (isPlayerVill) { villMax--; }
             if (isPlayerWolf) { wolfMax--; }
             for(int i = 0; i < villMax; i++)
@@ -386,8 +388,8 @@ namespace WolfKillen
             int temp;
             for (; ; )
             {
-                temp = r.Next(2, 12);
-                if (playerArr[temp] == 0 || (playerArr[temp] != 1 && playerArr[temp] !=2))
+                temp = r.Next(1, 12);
+                if (playerArr[temp] == 0)
                 {
                     playerArr[temp] = 3;
                     break;
@@ -403,8 +405,8 @@ namespace WolfKillen
             int temp;
             for (; ; )
             {
-                temp = r.Next(2, 12);
-                if (playerArr[temp] == 0 || (playerArr[temp] != 1 && playerArr[temp] != 2 && playerArr[temp] != 3))
+                temp = r.Next(1, 12);
+                if (playerArr[temp] == 0)
                 {
                     playerArr[temp] = 4;
                     break;
@@ -420,8 +422,8 @@ namespace WolfKillen
             int temp;
             for (; ; )
             {
-                temp = r.Next(2, 12);
-                if (playerArr[temp] == 0 || (playerArr[temp] != 1 && playerArr[temp] != 2 && playerArr[temp] != 3 && playerArr[temp] != 4))
+                temp = r.Next(1, 12);
+                if (playerArr[temp] == 0)
                 {
                     playerArr[temp] = 5;
                     break;
@@ -437,8 +439,9 @@ namespace WolfKillen
             int temp;
             for (; ; )
             {
-                temp = r.Next(2, 12);
-                if (playerArr[temp] == 0 || (playerArr[temp] != 1 && playerArr[temp] != 2 && playerArr[temp] != 3 && playerArr[temp] != 4 && playerArr[temp] != 5))
+                temp = r.Next(1, 12);
+                //更改：这里直接把多余的一个平民剃掉 不然就会死循环
+                if (playerArr[temp] == 0)
                 {
                     playerArr[temp] = 6;
                     break;
@@ -448,19 +451,35 @@ namespace WolfKillen
             return playerArr;
         }
 
+
         private int[] FullPlayersWhoGuard(int[] playerArr)
         {
             Random r = new Random();
             int temp;
             for (; ; )
             {
-                temp = r.Next(2, 12);
-                if (playerArr[temp] == 0 || (playerArr[temp] != 1 && playerArr[temp] != 2 && playerArr[temp] != 3 && playerArr[temp] != 4 && playerArr[temp] != 5&& playerArr[temp] != 6))
+                temp = r.Next(1, 12);
+                if (playerArr[temp] == 0)
                 {
                     playerArr[temp] = 7;
                     break;
                 }
                 continue;
+            }
+            //如果少一个平民 要补上
+            bool exists = ((IList)playerArr).Contains(0);
+            while(exists){
+                for (; ; )
+                {
+                    temp = r.Next(1, 12);
+                    if (playerArr[temp] == 0)
+                    {
+                        playerArr[temp] = 2;
+                        break;
+                    }
+                    continue;
+                }
+                exists = ((IList)playerArr).Contains(0);
             }
             return playerArr;
         }

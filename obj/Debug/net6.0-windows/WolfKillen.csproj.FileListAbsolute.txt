@@ -46,3 +46,5 @@ D:\WolfKillenProject\bin\Debug\net6.0-windows\Fonts\iconfont.ttf
 D:\WolfKillenProject\obj\Debug\net6.0-windows\WolfKillen_Content.g.cs
 D:\WolfKillenProject\obj\Debug\net6.0-windows\About.g.cs
 D:\WolfKillenProject\obj\Debug\net6.0-windows\About.baml
+D:\WolfKillenProject\obj\Debug\net6.0-windows\LogConsole.g.cs
+D:\WolfKillenProject\obj\Debug\net6.0-windows\LogConsole.baml

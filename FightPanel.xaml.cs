@@ -20,7 +20,7 @@ namespace WolfKillen
     /// </summary>
     public partial class FightPanel : Window
     {
-
+        LogConsole console = new LogConsole();
         public int playersMode = 0;
         public int jobId = 1;
         public string[] JobImgPaths = new string[7] { "resc/theWolf.png", "resc/villager.png", "resc/witch.png", "resc/hunter.png", "resc/prophet.png", "resc/stupid.png", "resc/guard.png" };
@@ -143,6 +143,7 @@ namespace WolfKillen
             }
         }
 
+
         private void leftChClicked(object sender, MouseButtonEventArgs e)
         {
             selectedPlId--;
@@ -264,5 +265,13 @@ namespace WolfKillen
         {
 
         }
+        private void buttonLogConsole_Click(object sender, RoutedEventArgs e)
+        {
+            // window position
+            console.Left = this.Left + 0;
+            console.Top = this.Top + 0;
+            console.Show();
+        }
+
     }
 }

@@ -44,7 +44,6 @@
 
   <ItemGroup>
     <Folder Include="page\" />
-    <Folder Include="ploy\" />
   </ItemGroup>
 
 </Project>

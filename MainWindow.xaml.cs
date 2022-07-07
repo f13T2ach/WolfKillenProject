@@ -26,6 +26,7 @@ namespace WolfKillen
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public int playersMode;
         private string menuMode = "选择玩家人数";
         private bool isOnMenuPage = true;
@@ -38,14 +39,31 @@ namespace WolfKillen
         public MainWindow()
         {
             InitializeComponent();
+            Start();
+            StartLogConsole();
+        }
+
+        private void Start()
+        {
             ThisTitle.Text = "狼人杀           " + menuMode;
             //为了方便 这里不用Frame封装一个小Page
             _10plbtn.Visibility = Visibility.Visible;
             _12plbtn.Visibility = Visibility.Visible;
 
             setJob.Visibility = Visibility.Hidden;
-
         }
+
+        public void StartLogConsole()
+        {
+            MainWindow mainwindow = this;
+            console = new LogConsole(mainwindow);
+            // window position
+            console.Left = this.Left + 0;
+            console.Top = this.Top + 0;
+            console.Hide();
+        }
+
+        LogConsole console = new LogConsole();
 
         private void SixPlayers(object sender, MouseButtonEventArgs e)
         {
@@ -56,16 +74,14 @@ namespace WolfKillen
                 playersMode = 6;
                 ShowJobSelectPanel();
             }
-            else//如果按钮是 以。。。开始
+            else//如果按钮是开始
             {
                 windowRelax = true;
                 this.Close();
                 //显示战斗面板
                 fp.Show();
                 fp.GetPlayParameter(playersMode, jobId, JobImgPaths, JobNames, onlinePlay);
-                fp.LocalPlay();//这是蜜汁bug 如果不重新执行，就会发现上一行传入的值不存在了
-                
-                
+                fp.LocalPlay();
             }
         }
 
@@ -91,13 +107,12 @@ namespace WolfKillen
             conBtnTx.Text = "退回上一步";
             isOnMenuPage = false;
             setJob.Visibility = Visibility.Visible;
-            //设置一下jobId 防止重新调节的时候出故障
+            //设置jobId 防止重新调节的时候出故障
             jobId = 1;
             _6plbtnTx.Text = "以 " + JobNames[jobId - 1] + " 开始";
-            //设置资源的路径
-            jobImage.Source = new BitmapImage(new Uri(JobImgPaths[jobId - 1], UriKind.Relative));
+            jobImage.Source = new BitmapImage(new Uri(JobImgPaths[jobId - 1], UriKind.Relative));//设置资源的路径
             //六人情况下的提示
-            if(playersMode == 6 && onlinePlay == true)
+            if (playersMode == 6 && onlinePlay == true)
             {
                 tips.Content = "请注意，该模式下你只能由管理员为你选择角色。目标主机的既定玩家数量是 " + playersMode + "。\n因此，预言家和守卫 已依照规则除去。";
                 csTx.Text = "进入服务器";
@@ -270,7 +285,8 @@ namespace WolfKillen
                     jobId = 1;
                 }
             }
-
+            //1
+            //
             FightPanel fp = new FightPanel();
             //显示战斗面板
             fp.Show();

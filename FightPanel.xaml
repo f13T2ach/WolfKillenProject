@@ -123,6 +123,19 @@
                 </StackPanel>
             </Border>
 
+            <Border x:Name="setBtn" CornerRadius="20" Background="#f0f0f4" Margin="1060,592,10,10" MouseLeftButtonDown="buttonLogConsole_Click">
+
+                <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+                    <!--如果text的值是 &#xe631;&#xe610;设置 的话，生成出来会变成方框。不知道为啥-->
+                    <TextBlock Foreground="DimGray"
+                       Margin="10"
+                       FontSize="21"
+                       Height="20"
+                       FontFamily="pack://application:,,,/Fonts/#IconFont"
+                       Text="&#xe6de;"/>
+                </StackPanel>
+            </Border>
+
         </Grid>
     </Viewbox>
 </Window>

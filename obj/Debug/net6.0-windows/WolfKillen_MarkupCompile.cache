@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 D:\WolfKillenProject\App.xaml
-3-916745497
+4-1650936992
 1-626351372
-6-1589477873
+8-1696331713
 1942030480316
-About.xaml;FightPanel.xaml;MainWindow.xaml;
+About.xaml;FightPanel.xaml;LogConsole.xaml;MainWindow.xaml;
 
 False
 

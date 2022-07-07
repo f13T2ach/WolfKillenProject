@@ -13,9 +13,15 @@
     <Compile Update="About.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="LogConsole.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="FightPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="LogConsole.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
