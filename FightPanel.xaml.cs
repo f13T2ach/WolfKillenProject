@@ -20,6 +20,7 @@ namespace WolfKillen
     /// </summary>
     public partial class FightPanel : Window
     {
+        //以下是基本字段和对象罗列组
         LogConsole console = new LogConsole();
         public int playersMode = 0;
         public int jobId = 1;
@@ -33,8 +34,13 @@ namespace WolfKillen
         public int days = 1;
         public bool isNight = true;
         public int selectedPlId = 1;//选择的玩家
-        public int btn1Mode = 0;//按钮响应模式 1表示狼人操作 2表示投票操作 3表示女巫操作 4表示猎人操作 5表示投票操作 6表示白痴的亮出身份免死操作 7表示守护操作
+        public int btn1Mode = 0;//按钮响应模式 1表示狼人操作 2表示投票操作 3表示女巫操作 4表示猎人操作 5表示预言操作 6表示白痴的亮出身份免死操作 7表示守护操作 8表示发表遗言 9表示发言
         public int selcMode = 0;//选择模式 0表示名称选择 1表示图片选择
+        public int peopleToCtrl = 0;//将要被操作的玩家的下标
+        //*****END*****
+
+
+        //以下是基层方法
         public FightPanel()
         {
             InitializeComponent();
@@ -122,59 +128,28 @@ namespace WolfKillen
                 PlayerJobs = assi.AssignPlayerRole(playersMode, PlayerJobs);
                 //https://zhuanlan.zhihu.com/p/63750422 4狼4民 预言家、女巫、猎人、白痴
             }
+            //刷新玩家状态面板
             PlayerStat();
             
             
             DayToNight();
 
         }
-
-        public void PlayerStat()
-        {
-            playerNames.Content = "我\nbot1\nbot2\nbot3\nbot4\nbot5\nbot6\nbot7\nbot8\nbot9\nbot10\nbot11";
-            if(PlayerJobs[0]==1)
-            {
-
-            }
-        }
-
-        //调节按钮
-        #region
-        private void rightChClicked(object sender, MouseButtonEventArgs e)
-        {
-            selectedPlId++;
-            if (selectedPlId > playersMode)
-            {
-                selectedPlId = playersMode;
-            }
-
-            if (selcMode == 0)
-            {
-                playerName.Text = PlayerNames[selectedPlId - 1];
-            }
-            else
-            {
-                jobImage.Source = new BitmapImage(new Uri(JobImgPaths[selectedPlId - 1]));//图片的切换
-            }
-        }
+        //*****END*****
 
 
-        private void leftChClicked(object sender, MouseButtonEventArgs e)
-        {
-            selectedPlId--;
-            if (selectedPlId <= 0)
-            {
-                selectedPlId = 1;
-            }
-            playerName.Text = PlayerNames[selectedPlId - 1];
-        }
-        #endregion
-
+        //以下是黑夜和白天操作组
         //白天转黑夜
         private void DayToNight()
         {
             isNight = true;
-            if (PlayerJobs[0] != 0) { MainPlayerRole.Text = JobNames[PlayerJobs[0] - 1]; };//因为1是JobNames下标0的内容，所以往前推移。
+            if (PlayerJobs[0] > 0) {
+                MainPlayerRole.Text = JobNames[PlayerJobs[0] - 1]; //因为1是JobNames下标0的内容，所以往前推移。
+            }
+            else
+            {
+                MainPlayerRole.Text = "出局";
+            }
             jobImage.Visibility = Visibility.Hidden;
             leftCh.Visibility = Visibility.Hidden;
             playerName.Visibility = Visibility.Hidden;
@@ -182,9 +157,12 @@ namespace WolfKillen
             choosetitle.Text = "你没得选";
             userbtn2.Visibility = Visibility.Hidden;
             userbtn1.Visibility = Visibility.Hidden;
-            Night();
             //复位btnmode
             btn1Mode = 1;
+            selectedPlId = 1;
+            peopleToCtrl = 0;
+            Night();
+            
         }
 
         //晚上
@@ -213,10 +191,18 @@ namespace WolfKillen
             ObjectHint.Text = "昨晚是个[0]夜，[1]被刀了";
             choosetitle.Text = "你没得选";
             userbtn2.Visibility = Visibility.Hidden;
-            Day();
+            PlayerStat();
+            //复位
             btn1Mode = 1;
+            selectedPlId = 1;
+            peopleToCtrl = 0;
+            Day();
+            
+            
         }
-        //狼人睁眼 用线程调用
+        //*****END*****
+
+        //以下是技能发挥操作组
         private void WolfOpenEye()
         {
             this.Dispatcher.Invoke(new Action(() => { ObjectHint.Text = "天黑请闭眼"; }));
@@ -237,10 +223,27 @@ namespace WolfKillen
                 this.Dispatcher.Invoke(new Action(() => { userbtn1Tx.Text = "刀我选的人"; }));
                 this.Dispatcher.Invoke(new Action(() => { userbtn2Tx.Text = "跳过"; }));
             }
+            return;
         }
 
+        private void WolfCloseEye(int kill)
+        {
+            if(kill==-2)
+            {
+                ThreadStart threadStart = new ThreadStart(WolfOpenEye);//通过ThreadStart委托告诉子线程执行什么方法　　
+                Thread thread = new Thread(threadStart);
+                thread.Start();
+            }
+            else if(kill==-1)
+            {
+                this.Dispatcher.Invoke(new Action(() => { ObjectHint.Text = "狼人请闭眼"; }));
+                Thread.Sleep(1000);
+            }
+        }
+        //*****END*****
 
 
+        //以下是ui控制操作组
         /// <summary>
         /// 选择面板的控制
         /// </summary>
@@ -274,26 +277,35 @@ namespace WolfKillen
             }
 
         }
+
         private void userbtn1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if(btn1Mode == 1)
             {
-                if(selectedPlId == 1||PlayerJobs[selectedPlId]==1)
+                if (selectedPlId == 1 || PlayerJobs[selectedPlId] == 1)
                 {
                     //当刀人指向自己或者狼人
-                    MessageBox.Show("对象不能是狼人", "请注意", MessageBoxButton.OK, MessageBoxImage.Question);
+                    MessageBox.Show("对象不能是狼人或者自己", "请注意", MessageBoxButton.OK, MessageBoxImage.Question);
+                    peopleToCtrl = -2;
+                    WolfCloseEye(peopleToCtrl);
+                    return;
                 }
+                peopleToCtrl = selectedPlId;
+                WolfCloseEye(peopleToCtrl);
             }
+
         }
 
-        private int userbtn2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void userbtn2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if(btn1Mode==1)
             {
-                return -1;//表示跳过
+                peopleToCtrl = -1;//表示跳过
+                WolfCloseEye(peopleToCtrl);
             }
-            return -2;//表示出错
+
         }
+
         private void buttonLogConsole_Click(object sender, RoutedEventArgs e)
         {
             // window position
@@ -302,5 +314,106 @@ namespace WolfKillen
             console.Show();
         }
 
+        //操作
+        private void PlayerStatePanelShow(object sender,RoutedEventArgs e)
+        {
+            if(playersp.Visibility==Visibility.Visible)
+            {
+                playersp.Visibility = Visibility.Hidden;
+                return;
+            }
+            playersp.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// 玩家状态面板
+        /// </summary>
+        public void PlayerStat()
+        {
+            //PlayerJobs[0] = -1;
+            playerData.Content = "";
+            playerNames.Content = "我\nbot1\nbot2\nbot3\nbot4\nbot5\nbot6\nbot7\nbot8\nbot9\nbot10\nbot11";
+            if (PlayerJobs[0] == 1)//如果玩家是狼人
+            {
+                for (int i = 0; i <= playersMode - 1; i++)
+                {
+                    if (PlayerJobs[i] != -1 && PlayerJobs[i] == 1)
+                    {
+                        playerData.Content = playerData.Content + "存活狼人\n";
+                    }
+                    else if (PlayerJobs[i] != -1 && PlayerJobs[i] != 1)
+                    {
+                        playerData.Content = playerData.Content + "存活\n";
+                    }
+                    else
+                    {
+                        playerData.Content = playerData.Content + "死亡\n";
+                    }
+                }
+            }
+            else if (PlayerJobs[0] != 1 && PlayerJobs[0] != -1)//如果玩家是其他角色且没有死亡
+            {
+                for (int i = 0; i <= playersMode - 1; i++)
+                {
+                    if (PlayerJobs[i] == -1)
+                    {
+                        playerData.Content = playerData.Content + "死亡\n";
+                    }
+                    else
+                    {
+                        playerData.Content = playerData.Content + "存活\n";
+                    }
+                }
+            }
+            else//玩家死亡
+            {
+                for (int i = 0; i <= playersMode - 1; i++)
+                {
+                    if (PlayerJobs[i] <= 0)
+                    {
+                        playerData.Content = playerData.Content + "死亡\n";
+                    }
+                    else
+                    {
+                        playerData.Content = playerData.Content + "存活" + JobNames[PlayerJobs[i] - 1] + "\n";
+                    }
+
+
+                }
+            }
+        }
+
+        //中央的调节按钮
+        #region
+        private void rightChClicked(object sender, MouseButtonEventArgs e)
+        {
+            selectedPlId++;
+            if (selectedPlId > playersMode)
+            {
+                selectedPlId = playersMode;
+            }
+
+            if (selcMode == 0)
+            {
+                playerName.Text = PlayerNames[selectedPlId - 1];
+            }
+            else
+            {
+                jobImage.Source = new BitmapImage(new Uri(JobImgPaths[selectedPlId - 1]));//图片的切换
+            }
+        }
+
+
+        private void leftChClicked(object sender, MouseButtonEventArgs e)
+        {
+            selectedPlId--;
+            if (selectedPlId <= 0)
+            {
+                selectedPlId = 1;
+            }
+            playerName.Text = PlayerNames[selectedPlId - 1];
+        }
+        #endregion
+        //*****END*****
     }
 }

@@ -11,9 +11,9 @@
         <Grid Height="650" Width="1120">
             <Grid HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="1120">
                 <Label x:Name="time" Content="第1个白天" HorizontalAlignment="Left" Height="51" Margin="10,10,0,0" VerticalAlignment="Top" Width="269" FontSize="34"/>
-                <Border x:Name="onlinePlList" CornerRadius="20" Background="#f0f0f4" Margin="896,16,10,14">
+                <Border x:Name="onlinePlList" CornerRadius="20" Background="#f0f0f4" Margin="896,16,10,14" MouseLeftButtonDown="PlayerStatePanelShow">
 
-                    <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+                    <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal" >
                         <!--如果text的值是 &#xe631;&#xe610;设置 的话，生成出来会变成方框。不知道为啥-->
                         <TextBlock x:Name="onlinePlListTx" Foreground="DimGray" 
                         Margin="10"
@@ -91,7 +91,7 @@
 
                 <TextBlock x:Name="playerName"  TextAlignment="Center" Text="我" HorizontalAlignment="Center" Height="54" VerticalAlignment="Top" Width="432" FontSize="34" Margin="0,133,0,0"/>
                 <Image x:Name="jobImage" HorizontalAlignment="Center" Height="86" Margin="0,103,0,0" VerticalAlignment="Top" Width="84" Source="/resc/theWolf.png"/>
-                <Border x:Name="leftCh_Copy" CornerRadius="20" Background="#f0f0f4" Margin="868,-2,10,0" RenderTransformOrigin="0.5,0.5" MouseLeftButtonDown="leftChClicked">
+                <Border x:Name="playersp" CornerRadius="20" Background="#f0f0f4" Margin="868,-2,10,80" RenderTransformOrigin="0.5,0.5" MouseLeftButtonDown="leftChClicked" Visibility="Hidden">
                     <Border.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleY="1"/>
@@ -103,8 +103,8 @@
 
                     <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
                         <Grid Width="238">
-                            <Label x:Name="playerNames" Content="玩家列表" HorizontalAlignment="Left" Height="320" Margin="10,0,0,0" VerticalAlignment="Center" Width="160"/>
-                            <Label x:Name="playerData" Content="玩家详细" HorizontalAlignment="Left" Height="320" Margin="175,0,0,0" VerticalAlignment="Center" Width="63"/>
+                            <Label x:Name="playerNames" Content="玩家列表" HorizontalAlignment="Left" Height="243" Margin="10,10,0,0" VerticalAlignment="Top" Width="109"/>
+                            <Label x:Name="playerData" Content="玩家状态面板" HorizontalAlignment="Left" Height="243" Margin="119,10,0,0" VerticalAlignment="Top" Width="119"/>
 
                         </Grid>
                     </StackPanel>
@@ -153,7 +153,6 @@
                        Text="&#xe6de;"/>
                 </StackPanel>
             </Border>
-            <Label Content="关闭 | 失效控件" VerticalContentAlignment="Center" Height="48" Margin="310,592,310,0" VerticalAlignment="Top" Width="500" Background="#FFFF5050" Foreground="White" FontSize="20"/>
 
         </Grid>
     </Viewbox>
